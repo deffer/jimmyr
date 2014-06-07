@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	_ "log"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -82,7 +82,7 @@ func EvalTakes(subs []SubInfo) {
 
 }
 
-func Get(sub string) ([]Item, error) {
+func ReadSubreddit(sub string, take int) ([]Item, error) {
 	url := fmt.Sprintf("http://reddit.com/r/%s.json", sub)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -101,9 +101,14 @@ func Get(sub string) ([]Item, error) {
 		return nil, err
 	}
 
-	items := make([]Item, len(r.PageData.Children))
+	count := 0
+	items := make([]Item, take)
 	for i, child := range r.PageData.Children {
 		items[i] = child.Entry
+		count++
+		if count == take {
+			break
+		}
 	}
 	return items, nil
 }
@@ -114,17 +119,16 @@ func main() {
 	EvalTakes(subs)
 
 	for _, s := range subs {
-		fmt.Println(s.Name, s.Take, s.Weight)
+		fmt.Println("--------------\n", s.Name, s.Take, s.Weight, "\n--------------\n")
+		items, err := ReadSubreddit(s.Name, s.Take)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for _, item := range items {
+			fmt.Println(item)
+		}
 	}
-	//x := Sum(&array)  // Note the explicit address-of operator
 
-	/*items, err := Get("newzealand")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for _, item := range items {
-		fmt.Println(item)
-	}*/
 }
