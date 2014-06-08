@@ -9,5 +9,8 @@ import (
 
 func main() {
 	fmt.Println("Starting server...")
+	beego.SetStaticPath("/css", "static/css")
+	beego.SetStaticPath("/img", "static/img")
+	beego.SetStaticPath("/robots.txt", "static/robots.txt")
 	beego.Run()
 }
