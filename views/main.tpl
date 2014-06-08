@@ -12,14 +12,14 @@
 	<div name="leftColumn">
         <div class="well span4">
 			<ul class="unstyled">
-	            <li ng-repeat="b in selectedBookmarks">
-	                <div>
-	                    <i class="icon-remove pull-right" title="Delete" style="cursor: pointer;" ng-show="editMode" ng-click="deleteBookmark(b)"></i>
+				{.repeated section Entries}
+			        <li><div>
+						<i class="icon-remove pull-right" title="Delete" style="cursor: pointer;" ng-show="editMode" ng-click="deleteBookmark(b)"></i>
 	                    <i class="icon-pencil pull-right" title="Edit" style="cursor: pointer;" ng-show="editMode" ng-click="editBookmark(b)"></i>
-	                    <a href="{{b.url}}" target="_blank" style="font-size:small; display:block; margin-left: 2px; margin-right: 50px;">- {{b.title}}</a>
+	                    <a href="." target="_blank" style="font-size:small; display:block; margin-left: 2px; margin-right: 50px;">- {Name}</a>
 	                    <!--button type="button" class="close pull-right" aria-hidden="true" title="Delete">&times;</button-->
-	                </div>
-	            </li>
+	                </div></li>				        		    
+        		{.end}
 	        </ul>
 		</div>
 	</div>	
