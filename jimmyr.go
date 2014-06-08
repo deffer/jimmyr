@@ -113,7 +113,7 @@ func ReadSubreddit(sub string, take int) ([]Item, error) {
 	return items, nil
 }
 
-func main() {
+func main1() {
 
 	subs := ReadListFile("./filelist.txt")
 	EvalTakes(subs)
